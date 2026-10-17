@@ -37,6 +37,18 @@ class TestCalculo(unittest.TestCase):
         finally:
             os.environ.pop("MINILOJA_PROMO_NATAL", None)
 
+    def test_cupom_natal_com_flag_aplica_vinte_por_cento(self):
+        # R1: (100 * 0,8 + 19,90) * 1,07 = 106,893 -> 106,89
+        os.environ["MINILOJA_PROMO_NATAL"] = "1"
+        try:
+            self.assertEqual(calcular_total([{"preco": 100.0, "qtd": 1}], "NATAL", "SP"), 106.89)
+        finally:
+            os.environ.pop("MINILOJA_PROMO_NATAL", None)
+
+    def test_frete_rj_abaixo_de_200(self):
+        # R1: (40 + 21,50) * 1,06 = 65,19
+        self.assertEqual(calcular_total([{"preco": 40.0, "qtd": 1}], None, "RJ"), 65.19)
+
     def test_cenarios_gravados(self):
         cenarios = {
             "simples": calcular_total([{"preco": 19.99, "qtd": 3}], None, "PE"),

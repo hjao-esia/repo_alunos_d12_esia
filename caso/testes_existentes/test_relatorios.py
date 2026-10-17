@@ -11,3 +11,7 @@ class TestRelatorios(unittest.TestCase):
 
     def test_simular_desconto(self):
         self.assertTrue(simular_desconto(100.0, "PROMO10").startswith("R$"))
+
+    def test_simular_desconto_duas_casas(self):
+        # R1.2 e R1.5: 12,34 * 0,9 = 11,106 -> 11,11
+        self.assertEqual(simular_desconto(12.34, "PROMO10"), "R$ 11,11")

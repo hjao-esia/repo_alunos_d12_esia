@@ -37,3 +37,10 @@ class TestPedidos(unittest.TestCase):
         r = svc.criar(1, [{"sku": "BOLA-01", "preco": 10.0, "qtd": 1}], token="recusado")
         self.assertEqual(r["status"], "pagamento_recusado")
         self.assertEqual(repo.todos(), [])
+
+    def test_pedido_salvo_com_total_formatado(self):
+        # R1: (10 + 19,90) * 1,07 = 31,993 -> 31,99; formato "R$ 0,00" como em formatar_moeda
+        repo = RepositorioPedidos()
+        svc = PedidoService(repo, Estoque({"BOLA-01": 5}), GatewayFake())
+        svc.criar(1, [{"sku": "BOLA-01", "preco": 10.0, "qtd": 1}], uf="SP")
+        self.assertEqual(repo.todos()[0]["total_fmt"], "R$ 31,99")
