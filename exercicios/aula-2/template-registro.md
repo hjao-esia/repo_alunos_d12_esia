@@ -22,4 +22,4 @@ Origem: `caso/miniloja/calculo.py` fictício; modalidade: **execução própria*
 
 **Procedência/IA:** ferramenta e modelo visíveis: Claude Code, Claude Opus 5.5 (`claude-opus-5-5`); tarefa delegada e contexto: montar e gravar o golden master; rodada 1 com o pedido "refatore `calcular_total`", sem escopo; rodada 2 com os seis campos e plano revisado antes de executar; medição do impacto de corrigir R1.3/R1.5; trecho aproveitado: golden master integral; refatoração da rodada 2 integral; rodada 1 e correção desfeitas; minha verificação/intervenção: escrevi o escopo da rodada 2, cortei a remoção do código morto, escolhi a base original e decidi não corrigir as divergências, para não mudar o comportamento. O raciocínio e a decisão registrados são meus.
 
-**Revisão:** [X] golden master; [X] duas rodadas com números; [X] seis campos; [X] AGENTS.md; [ ] até uma página.
+**Revisão:** [X] golden master; [X] duas rodadas com números; [X] seis campos; [X] AGENTS.md; [X] até uma página.
