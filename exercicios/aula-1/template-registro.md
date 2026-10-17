@@ -1,7 +1,7 @@
 # Registro individual — AV1.1
 
 **Limite: uma página, incluindo evidências essenciais.** Estudante: Heitor José Andrade de Oliveira — Data: 16/10/2026
-Origem: tarefas T1–T3 fictícias do enunciado; modalidade: **execução própria** (T1-A, T1-B e T2); demais: ___.
+Origem: tarefas T1–T3 fictícias do enunciado; modalidade: **execução própria** (T1-A, T1-B e T2).
 
 | Tarefa | Modo | Tempo até 1ª versão | Tempo até pronto e verificado | Idas e vindas | % corrigido à mão | O que a IA errou | Como verifiquei |
 | --- | --- | --- | --- | --- | --- | --- | --- |
