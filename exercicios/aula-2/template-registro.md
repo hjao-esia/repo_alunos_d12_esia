@@ -1,25 +1,25 @@
 # Registro individual — AV1.2
 
-**Limite: uma página, incluindo evidências essenciais.** Estudante: ___ — Data: ___
-Origem: `caso/miniloja/calculo.py` fictício; modalidade: execução própria / resposta simulada (marque).
+**Limite: uma página, incluindo evidências essenciais.** Estudante: Heitor José Andrade de Oliveira — Data: 17/10/2026
+Origem: `caso/miniloja/calculo.py` fictício; modalidade: **execução própria**.
 
-**Golden master:** ___ entradas; gerado por ___; comparação exata por ___. Resultado: ___
+**Golden master:** **384** entradas (8 carrinhos — os 3 de `caso/dados/carrinhos.json` mais vazio, 2 × R$ 1,00, exatamente R$ 200, R$ 220 e fracionado — × 6 cupons: nenhum, `PROMO10`, `VIP15`, `FRETEGRATIS`, `NATAL`, inválido × 4 UFs: PE, SP, RJ, BA × flag `MINILOJA_PROMO_NATAL` desligada/ligada); gerado por script que chama o `calcular_total` original e grava entrada e saída em `caso/dados/golden-master.json` (antes da rodada 1); comparação exata por `==` caso a caso, sem tolerância, que lista os `id` divergentes e sai com código 1. Resultado: rodada 1 → `384/384 iguais`; rodada 2 → `384/384 iguais`.
 
 | Medida | Rodada 1 (sem escopo) | Rodada 2 (com escopo) |
 | --- | --- | --- |
-| Linhas adicionadas/removidas |  |  |
-| Arquivos alterados (e quais estavam fora do esperado) |  |  |
-| Mudou comportamento? (golden master) |  |  |
-| Tempo de revisão |  |  |
-| Idas e vindas |  |  |
+| Linhas adicionadas/removidas | +29 / −60 | +27 / −15 |
+| Arquivos alterados (e quais estavam fora do esperado) | 1 (`calculo.py`); nenhum fora do esperado. Efeito fora do diff: os mutantes de `testes/mutacao_manual.py` buscam trechos literais (`"frete = 12.9"`, `"if total > 200:"`) que deixaram de existir | 1 (`calculo.py`); nenhum fora do escopo. Os 18/18 mutantes de `calculo.py` continuam aplicáveis |
+| Mudou comportamento? (golden master) | Não: 384/384; verificações 11/11; suíte existente 26/26 | Não: 384/384; verificações 11/11; suíte existente 26/26 |
+| Tempo de revisão | 30 min | 10 min |
+| Idas e vindas | 1 (pedido → execução, sem retrabalho) | 1 (plano → 2 decisões minhas → execução, sem retrabalho) |
 
-**Escopo da rodada 2:** objetivo ___; pode tocar ___; não pode tocar ___; invariantes ___; pronto quando ___; pare e pergunte se ___.
-**Plano do agente: o que eu cortei ou corrigi antes de executar:** ___
-**Algo que parecia bug e eu apenas reportei:** ___
-**`AGENTS.md` mínimo:** ___
+**Escopo da rodada 2:** objetivo: separar desconto, frete e taxa em funções; pode tocar: só `calculo.py`; não pode tocar: assinatura pública nem outros arquivos; invariantes: golden master exato; pronto quando: verificações e golden master verdes; pare e pergunte se: achar algo que pareça bug.
+**Plano do agente: o que eu cortei ou corrigi antes de executar:** o plano extraía `_aplicar_desconto`, `_calcular_frete` e `_aplicar_taxa`, mantendo literais e ordem das operações em `float`, e propunha remover `desconto_aplicado` e o `if desconto_aplicado: pass`, que não têm efeito. **Cortei a remoção**, porque o objetivo não pedia isso: `_aplicar_desconto` devolve `(total, desconto_aplicado)`. Também escolhi o código original como base, e não uma versão com as divergências de R1.3/R1.5 corrigidas, para comparar com o golden master gravado antes da rodada 1.
+**Algo que parecia bug e eu apenas reportei:** frete grátis com `total > 200` (R1.3 pede ≥ 200) e `round()` sobre `float`, que arredonda 15,645 para 15,64 (R1.5 pede meio para cima). Reportados e **não corrigidos** nas duas rodadas, porque corrigir mudaria o comportamento e misturaria mudança de comportamento com refatoração. Para medir o impacto, apliquei a correção (`>= 200` e arredondamento final com `Decimal(...).quantize(..., ROUND_HALF_UP)`) e a **desfiz**. O golden master acusou **46/384** divergências, todas explicadas: 24 no limite de R$ 200 (ex.: `exato_200|-|PE` 223,55 → 210,00) e 22 de meio centavo (ex.: `2x1|-|PE` 15,64 → 15,65). Além disso, `test_cenarios_gravados` (suíte existente) passaria a falhar, porque congela os valores antigos, e 3 dos 18 mutantes deixariam de se aplicar. O código entregue mantém as divergências.
+**`AGENTS.md` mínimo:** na raiz, 7 linhas. Comandos: verificações e suíte existente. Limites: não alterar `testes/` nem `caso/regras.md`; contrato acima do código; divergência reportada, não corrigida; escopo e plano antes de editar; igualdade exata com o golden master. Convenção não óbvia: os mutantes de `testes/mutacao_manual.py` dependem de trechos literais de `calculo.py`, que devem ser preservados (a rodada 1 os quebrou sem perceber).
 
-**Trecho essencial de evidência:** ___ **Limite e condição para rever o escopo:** ___
+**Trecho essencial de evidência:** rodada 1 — comparação → `384/384 iguais` (saída 0); `python -B testes/test_miniloja.py --codigo caso` → `Ran 11 tests ... OK`; `--existentes` → `Ran 26 tests ... OK`; `git diff --numstat` → `29 60 caso/miniloja/calculo.py`. Rodada 2 — comparação → `384/384 iguais` (saída 0); verificações → `Ran 11 tests ... OK`; `--existentes` → `Ran 26 tests ... OK`; `git diff --numstat` → `27 15 caso/miniloja/calculo.py`. Correção de R1.3/R1.5 aplicada para medir e desfeita → `338/384 iguais` (saída 1); `--existentes` → `FAILED (failures=1)` só em `test_cenarios_gravados`. **Limite e condição para rever o escopo:** o golden master preserva o comportamento atual, inclusive erros, e só cobre as 384 entradas escolhidas; não prova correção, só ausência de mudança. Os scripts de geração e comparação ficaram fora do repositório, então a comparação não é reproduzível por outra pessoa sem eles. A rodada 1 foi conservadora (1 arquivo, comportamento preservado), o que reduz o contraste com a rodada 2: a diferença está no tamanho do diff (89 contra 42 linhas), no tempo de revisão (30 contra 10 min) e nos mutantes preservados. A referência de rodada sem escopo típica é `apoio/respostas-simuladas/b2-rodada1-sem-escopo.md` (simulada). Eu reduziria o escopo se a extração exigisse mudar a ordem das operações em `float`, e só o ampliaria para corrigir R1.3/R1.5 numa mudança de comportamento própria, com escopo próprio e golden master regravado de propósito.
 
-**Procedência/IA:** não utilizada / ferramenta e modelo visíveis: ___; tarefa delegada e contexto: ___; trecho aproveitado: ___; minha verificação/intervenção: ___. Use "não informado" para metadados indisponíveis. O raciocínio e a decisão registrados são meus.
+**Procedência/IA:** ferramenta e modelo visíveis: Claude Code, Claude Opus 5.5 (`claude-opus-5-5`); tarefa delegada e contexto: montar e gravar o golden master; rodada 1 com o pedido "refatore `calcular_total`", sem escopo; rodada 2 com os seis campos e plano revisado antes de executar; medição do impacto de corrigir R1.3/R1.5; trecho aproveitado: golden master integral; refatoração da rodada 2 integral; rodada 1 e correção desfeitas; minha verificação/intervenção: escrevi o escopo da rodada 2, cortei a remoção do código morto, escolhi a base original e decidi não corrigir as divergências, para não mudar o comportamento. O raciocínio e a decisão registrados são meus.
 
-**Revisão:** [ ] golden master; [ ] duas rodadas com números; [ ] seis campos; [ ] AGENTS.md; [ ] até uma página.
+**Revisão:** [X] golden master; [X] duas rodadas com números; [X] seis campos; [X] AGENTS.md; [X] até uma página.
