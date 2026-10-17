@@ -1,7 +1,7 @@
 # Registro individual — AV1.1
 
 **Limite: uma página, incluindo evidências essenciais.** Estudante: Heitor José Andrade de Oliveira — Data: 16/10/2026
-Origem: tarefas T1–T3 fictícias do enunciado; modalidade: **execução própria** (T1-A, T1-B e T2); demais: ___.
+Origem: tarefas T1–T3 fictícias do enunciado; modalidade: **execução própria** (T1-A, T1-B e T2).
 
 | Tarefa | Modo | Tempo até 1ª versão | Tempo até pronto e verificado | Idas e vindas | % corrigido à mão | O que a IA errou | Como verifiquei |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -15,6 +15,6 @@ Origem: tarefas T1–T3 fictícias do enunciado; modalidade: **execução própr
 
 **Alternativa para T3:** chat sem agente. **Comparação com minha escolha (restrição e consequência):** mais seguro, pois nada toca o ambiente, mas mais lento às 02h e dependente de eu escolher os trechos certos de log. **Limite da comparação e condição para rever a escolha:** decisão hipotética, sem medição; com um runbook testado e ações reversíveis, eu daria ao agente permissão para executar passos específicos.
 
-**Procedência/IA:** ferramenta e modelo visíveis: Claude Code, Claude Opus 5.5 (`claude-opus-5-5`); tarefa delegada e contexto: T1-A — validar CPF em `caso/miniloja/cadastro.py` conforme R3.2, com leitura de `caso/regras.md`, das verificações e da suíte existente; T1-B — mesma ferramenta usada como chat (sem edição nem execução pela IA), pedido "valide o CPF em cadastro.py conforme R3.2, inválido responde 422", sem colar código nem contrato; trecho aproveitado: A — função `_cpf_valido` e retorno `422` em `cadastrar_cliente`, integralmente; B — função `cpf_valido` e bloco de validação, após duas correções pedidas no chat; minha verificação/intervenção: A — revisei e aprovei o plano antes da edição; B — colei, posicionei, salvei, rodei as verificações e devolvi as saídas de erro à IA; ___. Use "não informado" para metadados indisponíveis. O raciocínio e a decisão registrados são meus.
+**Procedência/IA:** ferramenta e modelo visíveis: Claude Code, Claude Opus 5.5 (`claude-opus-5-5`); tarefa delegada e contexto: T1-A — validar CPF em `caso/miniloja/cadastro.py` conforme R3.2, com leitura de `caso/regras.md`, das verificações e da suíte existente; T1-B — mesma ferramenta usada como chat (sem edição nem execução pela IA), pedido "valide o CPF em cadastro.py conforme R3.2, inválido responde 422", sem colar código nem contrato; trecho aproveitado: A — função `_cpf_valido` e retorno `422` em `cadastrar_cliente`, integralmente; B — função `cpf_valido` e bloco de validação, após duas correções pedidas no chat; minha verificação/intervenção: A — revisei e aprovei o plano antes da edição; B — colei, posicionei, salvei, rodei as verificações e devolvi as saídas de erro à IA. O raciocínio e a decisão registrados são meus.
 
 **Revisão:** [X] dois modos em T1; [X] evidência localizada; [X] T3 decidida; [X] alternativa e limite; [X] até uma página.
