@@ -1,0 +1,7 @@
+$ CIENTO_OFFLINE=1 PYTHONIOENCODING=utf-8 python -B -m cienciometria.jobs relatorio top_instituicoes
+Universidade Federal de Teste                   64
+Universidade Exemplo do Recife                  64
+Universidade de Exemplolândia                   58
+Centro de Pesquisa Imaginário                   46
+Instituto Fictício de Tecnologia                10
+exit=0

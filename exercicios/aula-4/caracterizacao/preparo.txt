@@ -1,0 +1,6 @@
+$ CIENTO_OFFLINE=1 python -B -m cienciometria.jobs ingest
+120 trabalhos
+exit=0
+$ CIENTO_OFFLINE=1 python -B -m cienciometria.jobs enriquecer
+30 autores
+exit=0
