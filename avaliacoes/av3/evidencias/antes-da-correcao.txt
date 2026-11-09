@@ -1,0 +1,84 @@
+test_dono_ve_o_proprio_pedido (testes_existentes.test_acesso.TestAcessoR4.test_dono_ve_o_proprio_pedido) ... ok
+test_outro_usuario_recebe_404 (testes_existentes.test_acesso.TestAcessoR4.test_outro_usuario_recebe_404) ... FAIL
+test_resposta_igual_a_de_pedido_inexistente (testes_existentes.test_acesso.TestAcessoR4.test_resposta_igual_a_de_pedido_inexistente) ... FAIL
+test_cadastro_sem_nome_e_rejeitado (testes_existentes.test_cadastro.TestCadastro.test_cadastro_sem_nome_e_rejeitado) ... ok
+test_cadastro_valido (testes_existentes.test_cadastro.TestCadastro.test_cadastro_valido) ... ok
+test_cenarios_gravados (testes_existentes.test_calculo.TestCalculo.test_cenarios_gravados) ... ok
+test_cupom_desconhecido_e_ignorado (testes_existentes.test_calculo.TestCalculo.test_cupom_desconhecido_e_ignorado) ... ok
+test_cupom_natal_com_flag (testes_existentes.test_calculo.TestCalculo.test_cupom_natal_com_flag) ... ok
+test_cupom_natal_com_flag_aplica_vinte_por_cento (testes_existentes.test_calculo.TestCalculo.test_cupom_natal_com_flag_aplica_vinte_por_cento) ... ok
+test_cupom_promo10_sp (testes_existentes.test_calculo.TestCalculo.test_cupom_promo10_sp) ... ok
+test_frete_gratis_rj (testes_existentes.test_calculo.TestCalculo.test_frete_gratis_rj) ... ok
+test_frete_rj_abaixo_de_200 (testes_existentes.test_calculo.TestCalculo.test_frete_rj_abaixo_de_200) ... ok
+test_pedido_acima_de_200_nao_paga_frete (testes_existentes.test_calculo.TestCalculo.test_pedido_acima_de_200_nao_paga_frete) ... ok
+test_retorna_numero (testes_existentes.test_calculo.TestCalculo.test_retorna_numero) ... ok
+test_total_simples_pe (testes_existentes.test_calculo.TestCalculo.test_total_simples_pe) ... ok
+test_uf_desconhecida_usa_frete_e_taxa_padrao (testes_existentes.test_calculo.TestCalculo.test_uf_desconhecida_usa_frete_e_taxa_padrao) ... ok
+test_meio_centavo_arredonda_para_cima (testes_existentes.test_calculo_contrato.TestArredondamentoEOrdemR15R16.test_meio_centavo_arredonda_para_cima) ... expected failure
+test_ordem_desconto_frete_taxa (testes_existentes.test_calculo_contrato.TestArredondamentoEOrdemR15R16.test_ordem_desconto_frete_taxa) ... ok
+test_cupom_desconhecido_e_ignorado (testes_existentes.test_calculo_contrato.TestDescontoR12.test_cupom_desconhecido_e_ignorado) ... ok
+test_natal_com_campanha_ativa_tira_vinte_por_cento (testes_existentes.test_calculo_contrato.TestDescontoR12.test_natal_com_campanha_ativa_tira_vinte_por_cento) ... ok
+test_natal_sem_campanha_nao_desconta (testes_existentes.test_calculo_contrato.TestDescontoR12.test_natal_sem_campanha_nao_desconta) ... ok
+test_promo10_tira_dez_por_cento (testes_existentes.test_calculo_contrato.TestDescontoR12.test_promo10_tira_dez_por_cento) ... ok
+test_vip15_tira_quinze_por_cento (testes_existentes.test_calculo_contrato.TestDescontoR12.test_vip15_tira_quinze_por_cento) ... ok
+test_frete_gratis_acima_de_200 (testes_existentes.test_calculo_contrato.TestFreteR13.test_frete_gratis_acima_de_200) ... ok
+test_frete_gratis_com_subtotal_exatamente_200 (testes_existentes.test_calculo_contrato.TestFreteR13.test_frete_gratis_com_subtotal_exatamente_200) ... expected failure
+test_frete_por_uf_abaixo_de_200 (testes_existentes.test_calculo_contrato.TestFreteR13.test_frete_por_uf_abaixo_de_200) ... ok
+test_fretegratis_zera_frete_sem_alterar_valor (testes_existentes.test_calculo_contrato.TestFreteR13.test_fretegratis_zera_frete_sem_alterar_valor) ... ok
+test_limite_usa_subtotal_com_desconto_abaixo (testes_existentes.test_calculo_contrato.TestFreteR13.test_limite_usa_subtotal_com_desconto_abaixo) ... ok
+test_limite_usa_subtotal_com_desconto_acima (testes_existentes.test_calculo_contrato.TestFreteR13.test_limite_usa_subtotal_com_desconto_acima) ... ok
+test_subtotal_soma_preco_vezes_quantidade (testes_existentes.test_calculo_contrato.TestSubtotalR11.test_subtotal_soma_preco_vezes_quantidade) ... ok
+test_taxa_por_uf_sobre_valor_sem_frete (testes_existentes.test_calculo_contrato.TestTaxaR14.test_taxa_por_uf_sobre_valor_sem_frete) ... ok
+test_aplicar_desconto (testes_existentes.test_descontos.TestDescontos.test_aplicar_desconto) ... ok
+test_sem_cupom_retorna_total (testes_existentes.test_descontos.TestDescontos.test_sem_cupom_retorna_total) ... ok
+test_vip15_aplica_quinze_por_cento (testes_existentes.test_descontos.TestDescontos.test_vip15_aplica_quinze_por_cento) ... ok
+test_reservar_alem_do_saldo_levanta (testes_existentes.test_estoque.TestEstoque.test_reservar_alem_do_saldo_levanta) ... ok
+test_reservar_decrementa_saldo (testes_existentes.test_estoque.TestEstoque.test_reservar_decrementa_saldo) ... ok
+test_reservar_exatamente_o_saldo (testes_existentes.test_estoque.TestEstoque.test_reservar_exatamente_o_saldo) ... ok
+test_formatar_moeda_milhar (testes_existentes.test_formatacao.TestFormatacao.test_formatar_moeda_milhar) ... ok
+test_formatar_moeda_nao_quebra (testes_existentes.test_formatacao.TestFormatacao.test_formatar_moeda_nao_quebra) ... ok
+test_criar_e_obter_pedido (testes_existentes.test_handlers.TestHandlers.test_criar_e_obter_pedido) ... ok
+test_estoque_insuficiente_retorna_409 (testes_existentes.test_handlers.TestHandlers.test_estoque_insuficiente_retorna_409) ... ok
+test_pedido_inexistente (testes_existentes.test_handlers.TestHandlers.test_pedido_inexistente) ... ok
+test_criar_pedido (testes_existentes.test_pedidos.TestPedidos.test_criar_pedido) ... ok
+test_fluxo_chama_colaboradores (testes_existentes.test_pedidos.TestPedidos.test_fluxo_chama_colaboradores) ... ok
+test_pagamento_recusado_nao_salva_pedido (testes_existentes.test_pedidos.TestPedidos.test_pagamento_recusado_nao_salva_pedido) ... ok
+test_pedido_salvo_com_total_formatado (testes_existentes.test_pedidos.TestPedidos.test_pedido_salvo_com_total_formatado) ... ok
+test_pedido_sem_itens_e_rejeitado (testes_existentes.test_pedidos.TestPedidos.test_pedido_sem_itens_e_rejeitado) ... ok
+test_resumo_vendas (testes_existentes.test_relatorios.TestRelatorios.test_resumo_vendas) ... ok
+test_simular_desconto (testes_existentes.test_relatorios.TestRelatorios.test_simular_desconto) ... ok
+test_simular_desconto_duas_casas (testes_existentes.test_relatorios.TestRelatorios.test_simular_desconto_duas_casas) ... ok
+
+======================================================================
+FAIL: test_outro_usuario_recebe_404 (testes_existentes.test_acesso.TestAcessoR4.test_outro_usuario_recebe_404)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "caso\testes_existentes\test_acesso.py", line 22, in test_outro_usuario_recebe_404
+    self.assertEqual(status, 404)
+AssertionError: 200 != 404
+
+======================================================================
+FAIL: test_resposta_igual_a_de_pedido_inexistente (testes_existentes.test_acesso.TestAcessoR4.test_resposta_igual_a_de_pedido_inexistente)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "caso\testes_existentes\test_acesso.py", line 29, in test_resposta_igual_a_de_pedido_inexistente
+    self.assertEqual(alheio, inexistente)
+AssertionError: Tuples differ: (200, {'usuario_id': 20, 'itens': [{'sku':[102 chars]: 3}) != (404, {'erro': 'não encontrado'})
+
+First differing element 0:
+200
+404
+
++ (404, {'erro': 'não encontrado'})
+- (200,
+-  {'id': 3,
+-   'itens': [{'preco': 50.0, 'qtd': 1, 'sku': 'BOLA-01'}],
+-   'status': 'pago',
+-   'total': 66.05,
+-   'total_fmt': 'R$ 66,05',
+-   'usuario_id': 20})
+
+----------------------------------------------------------------------
+Ran 50 tests in 0.006s
+
+FAILED (failures=2, expected failures=2)
