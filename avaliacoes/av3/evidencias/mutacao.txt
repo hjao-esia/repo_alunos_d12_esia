@@ -1,0 +1,1 @@
+Mutantes: 12 | mortos: 12 | sobreviventes: 0 | escore: 100%

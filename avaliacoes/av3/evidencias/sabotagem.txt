@@ -1,0 +1,5 @@
+detectada  | sem a checagem de dono (código anterior)
+detectada  | checagem invertida (só o dono é barrado)
+detectada  | 403 em vez de 404 (revela que o pedido existe)
+detectada  | 404 com corpo diferente do inexistente
+Sabotagens: 4 | detectadas: 4
