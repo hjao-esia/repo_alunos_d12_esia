@@ -1,24 +1,28 @@
 # Registro individual — AV1.5
 
-**Limite: uma página, incluindo evidências essenciais.** Estudante: ___ — Data: ___
-Origem: pull request fictício liberado no bloco; modalidade: execução própria / inspeção textual (marque).
+**Limite: uma página, incluindo evidências essenciais.** Estudante: Heitor José Andrade de Oliveira — Data: 24/10/2026
+Origem: pull request fictício liberado no bloco (`apoio/pr-bloco5/`, patch aplicado numa cópia descartável de `caso/`); modalidade: **execução própria** (testes de reprodução em `exercicios/aula-5/repro/test_repro_pr5.py`, saída em `repro/saida-pr.txt`: 5 FAIL, 1 ok).
 
 | # | Onde (arquivo) | Problema e impacto | Severidade (bloqueia / comenta) | Correção e teste que falharia sem ela |
 | --- | --- | --- | --- | --- |
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
+| 1 | `caso/miniloja/exportacao.py:15` | `handlers._repo.todos()` ignora `usuario_id`: o CSV do usuário 1 traz pedidos do usuário 2. **Viola R4** (vazamento de dados de outros clientes). | **bloqueia** | Filtrar `p["usuario_id"] == usuario_id`. Teste `test_a1_r4_...`: pedidos dos usuários 1 e 2; o CSV do usuário 1 só pode ter `usuario_id=1` (hoje vem `{'1','2'}`). |
+| 2 | `caso/miniloja/exportacao.py:17` | `os.path.join(EXPORT_DIR, nome_arquivo)` com nome vindo do cliente: `../fora.csv` escreve fora de `exports/`, e um caminho absoluto descarta `EXPORT_DIR`. **Path traversal**: sobrescreve arquivos arbitrários. | **bloqueia** | Aceitar só nome simples (`os.path.basename(n) == n`, `.csv`) ou gerar o nome no servidor; senão `400`. Testes `test_a2_...` e `test_a2b_...`: o arquivo não pode ser criado fora de `exports/` (hoje é). |
+| 3 | `caso/miniloja/exportacao.py:24-26` | `except Exception: pass` e depois `return 200` com `arquivo` e `linhas`: falha de escrita é respondida como sucesso, apontando para um arquivo que não existe. | **bloqueia** | Remover o `except` genérico; tratar `OSError` com status de erro (`500`/`400`). Teste `test_a3_...`: `pasta_inexistente/vendas.csv` não pode dar `200` (hoje dá). |
+| 4 | `caso/testes_existentes/test_exportacao.py:10-17` | Faz mock do `_repo`, não lê o CSV e **exige `linhas == 2`** para o usuário 1 com pedidos de dois usuários: transforma a violação de R4 em comportamento esperado. Também grava `exports/vendas.csv` no diretório corrente (apareceu na raiz do repo ao rodar a suíte). | **bloqueia** (teste errado contra o contrato) | Teste com repositório real, conferindo o conteúdo do CSV, num diretório temporário. `test_a5_...` espera `linhas == 1` (hoje `2`). |
+| 5 | `caso/requirements.txt:2` | `csv-export-helper==0.4.2` **não existe** no PyPI e não é importado em lugar nenhum. Quebra "somente biblioteca padrão" e abre risco de cadeia de suprimentos (alguém registra o nome e o `pip install` executa código dele). | **bloqueia** | Remover a linha. Verificação: `grep -rn csv_export_helper caso` só encontra o `requirements.txt`. |
+| 6 | `caso/miniloja/exportacao.py:10-11`, `:5` e `:15` | `_br` duplica `formatacao.formatar_moeda` (saída idêntica para 0, 10, 1234.5, 1234567.891 e −3.5); acessa o privado `handlers._repo`; `handlers` importa `exportacao` dentro da função para fugir de um import circular. | comenta | Reutilizar `formatar_moeda` e injetar o repositório. `test_a6_...` (passa) garante que a troca não muda a saída. |
 
 | Alegação da descrição do PR | Confirmada ou refutada? | Evidência (comando, trecho) |
 | --- | --- | --- |
-| ___ |  |  |
-| ___ |  |  |
+| "Todos os testes passam (27)" | **Confirmada em parte**: passam, mas a contagem está errada e a suíte verde não prova nada. | `--codigo <copia> --existentes`: `Ran 48 tests ... OK (expected failures=2)`; base `main`: 47 (o "27" vale para o material original, 26+1). O teste novo fixa o defeito (achado 4). |
+| "Não há mudanças de comportamento no código existente" | **Confirmada** para o que já existia | 11 verificações `OK` na base e na cópia; `handlers.py` só ganha `get_exportacao` (`:42-45`). |
+| "Código revisado e seguro" | **Refutada** | Achados 1, 2 e 5: `test_a1`, `test_a2`, `test_a2b` FAIL; dependência inexistente. |
+| "`csv-export-helper` para formatar o CSV" | **Refutada** | A formatação é feita por `_br` (`exportacao.py:10`) e `csv` da stdlib; nenhum import do pacote. |
 
-**Dependência nova (nome, existe?, quem mantém?, necessária?):** ___
+**Dependência nova (nome, existe?, quem mantém?, necessária?):** `csv-export-helper==0.4.2`. **Não existe**: `https://pypi.org/pypi/csv-export-helper/json` e `/simple/` respondem 404, e `pip download csv-export-helper==0.4.2` falha com "No matching distribution" (24/10/2026). Mantenedor: não há. Necessária: não (código usa só `csv`). Provável alucinação do agente; nome livre para typosquatting.
 
-**Decisão sobre o merge e condição para aprovar:** ___ **Limite da revisão:** ___
+**Decisão sobre o merge e condição para aprovar:** **rejeito (pedir mudanças)**. Aprovo quando: (a) os achados 1–5 estiverem corrigidos; (b) `test_repro_pr5.py` passar inteiro, incorporado à suíte do caso; (c) as 11 verificações e a suíte existente continuarem verdes; (d) a descrição do PR for corrigida. Quem aprova o merge responde pelo código: com o PR como está, eu estaria aprovando um vazamento entre clientes (R4) e escrita arbitrária em disco. **Limite da revisão:** não rodei análise estática nem fuzzing do nome de arquivo (Unicode, nomes reservados do Windows, links simbólicos); não testei concorrência (dois exports com o mesmo nome) nem volume; não há autenticação real no caso, então `usuario_id` é confiado a quem chama; problemas do código anterior (por exemplo `get_pedido` também não checa o dono, `handlers.py:35-39`) ficaram fora do escopo deste PR.
 
-**Procedência/IA:** não utilizada / ferramenta e modelo visíveis: ___; tarefa delegada e contexto: ___; trecho aproveitado: ___; minha verificação/intervenção: ___. Use "não informado" para metadados indisponíveis. O raciocínio e a decisão registrados são meus.
+**Procedência/IA:** ferramenta e modelo visíveis: Claude Opus 5.5 (`claude-opus-5-5`, Claude Code); tarefa delegada e contexto: aplicar o patch numa cópia descartável, rodar as suítes, escrever os testes de reprodução, consultar o PyPI e redigir este registro; trecho aproveitado: tabelas, testes e parecer; minha verificação/intervenção: pedi o plano antes da execução, revisei cada achado contra `caso/regras.md` e a saída gravada. O raciocínio e a decisão registrados são meus.
 
-**Revisão:** [ ] quatro achados; [ ] alegações conferidas; [ ] dependência checada; [ ] decisão; [ ] até uma página.
+**Revisão:** [x] quatro achados; [x] alegações conferidas; [x] dependência checada; [x] decisão; [x] até uma página.

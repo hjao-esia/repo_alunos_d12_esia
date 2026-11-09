@@ -1,0 +1,52 @@
+test_a1_r4_exporta_apenas_pedidos_do_proprio_usuario (__main__.TestAchados.test_a1_r4_exporta_apenas_pedidos_do_proprio_usuario) ... FAIL
+test_a2_nome_com_dotdot_nao_escreve_fora_de_exports (__main__.TestAchados.test_a2_nome_com_dotdot_nao_escreve_fora_de_exports) ... FAIL
+test_a2b_nome_absoluto_nao_escreve_fora_de_exports (__main__.TestAchados.test_a2b_nome_absoluto_nao_escreve_fora_de_exports) ... FAIL
+test_a3_falha_de_escrita_nao_responde_200 (__main__.TestAchados.test_a3_falha_de_escrita_nao_responde_200) ... FAIL
+test_a6_br_igual_a_formatar_moeda (__main__.TestDuplicacao.test_a6_br_igual_a_formatar_moeda) ... ok
+test_a5_teste_do_pr_exige_linhas_2_para_usuario_1 (__main__.TestTesteDoPR.test_a5_teste_do_pr_exige_linhas_2_para_usuario_1) ... FAIL
+
+======================================================================
+FAIL: test_a1_r4_exporta_apenas_pedidos_do_proprio_usuario (__main__.TestAchados.test_a1_r4_exporta_apenas_pedidos_do_proprio_usuario)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Heitor\Documents\repo_alunos_d12_esia\exercicios\aula-5\repro\test_repro_pr5.py", line 42, in test_a1_r4_exporta_apenas_pedidos_do_proprio_usuario
+    self.assertEqual(donos, {"1"}, "CSV do usuário 1 contém pedidos de outros usuários")
+AssertionError: Items in the first set but not the second:
+'2' : CSV do usuário 1 contém pedidos de outros usuários
+
+======================================================================
+FAIL: test_a2_nome_com_dotdot_nao_escreve_fora_de_exports (__main__.TestAchados.test_a2_nome_com_dotdot_nao_escreve_fora_de_exports)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Heitor\Documents\repo_alunos_d12_esia\exercicios\aula-5\repro\test_repro_pr5.py", line 46, in test_a2_nome_com_dotdot_nao_escreve_fora_de_exports
+    self.assertFalse(os.path.exists(os.path.join(self.dentro, "fora.csv")),
+AssertionError: True is not false : arquivo escrito fora de exports/
+
+======================================================================
+FAIL: test_a2b_nome_absoluto_nao_escreve_fora_de_exports (__main__.TestAchados.test_a2b_nome_absoluto_nao_escreve_fora_de_exports)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Heitor\Documents\repo_alunos_d12_esia\exercicios\aula-5\repro\test_repro_pr5.py", line 53, in test_a2b_nome_absoluto_nao_escreve_fora_de_exports
+    self.assertFalse(os.path.exists(alvo), "caminho absoluto ignora EXPORT_DIR")
+AssertionError: True is not false : caminho absoluto ignora EXPORT_DIR
+
+======================================================================
+FAIL: test_a3_falha_de_escrita_nao_responde_200 (__main__.TestAchados.test_a3_falha_de_escrita_nao_responde_200)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Heitor\Documents\repo_alunos_d12_esia\exercicios\aula-5\repro\test_repro_pr5.py", line 58, in test_a3_falha_de_escrita_nao_responde_200
+    self.assertNotEqual(status, 200, "erro de escrita engolido e 200 devolvido")
+AssertionError: 200 == 200 : erro de escrita engolido e 200 devolvido
+
+======================================================================
+FAIL: test_a5_teste_do_pr_exige_linhas_2_para_usuario_1 (__main__.TestTesteDoPR.test_a5_teste_do_pr_exige_linhas_2_para_usuario_1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Heitor\Documents\repo_alunos_d12_esia\exercicios\aula-5\repro\test_repro_pr5.py", line 68, in test_a5_teste_do_pr_exige_linhas_2_para_usuario_1
+    self.assertEqual(corpo["linhas"], 1)
+AssertionError: 2 != 1
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.013s
+
+FAILED (failures=5)
