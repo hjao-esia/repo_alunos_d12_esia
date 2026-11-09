@@ -1,27 +1,27 @@
 # Registro individual — AV1.6
 
-**Limite: uma página, incluindo evidências essenciais.** Estudante: ___ — Data: ___
-Origem: meus registros AV1.1 a AV1.3 e um contexto de time descrito de forma genérica.
+**Limite: uma página, incluindo evidências essenciais.** Estudante: Heitor José Andrade de Oliveira — Data: 09/11/2026
+Origem: meus registros AV1.1 a AV1.3 (e o achado de dependência da AV1.5) e um contexto de time descrito de forma genérica: time de backend de ~6 pessoas, PRs revisados por pares, começando a delegar tarefas a agente de codificação.
 
 | Campo da medição | Meu desenho |
 | --- | --- |
-| Pergunta (uma frase) | ___ |
-| Decisão que depende da resposta | ___ |
-| Métrica primária | ___ |
-| Guardrail de qualidade | ___ |
-| Baseline (de onde vem, que período) | ___ |
-| Período e método de comparação | ___ |
-| Confundidores previstos | ___ |
-| Como a métrica poderia ser gamificada | ___ |
+| Pergunta (uma frase) | Exigir **escopo declarado e plano revisado** (os seis campos da AV1.2) nas tarefas delegadas ao agente reduz o tempo de revisão dos PRs assistidos **sem** aumentar defeitos que escapam? |
+| Decisão que depende da resposta | Tornar o escopo obrigatório no template de PR e no `AGENTS.md` do time, ou abandonar a exigência (ela custa tempo de quem escreve). |
+| Métrica primária | Mediana do tempo de revisão por PR assistido: da abertura do PR até a aprovação, em horas úteis, com o tamanho do diff (linhas +/−) registrado junto. |
+| Guardrail de qualidade | Taxa de PRs revertidos ou corrigidos por hotfix em até 14 dias, e achados **bloqueantes** numa re-revisão por amostragem (checklist da AV1.5). Verificações e suíte verdes continuam pré-requisito, não métrica. |
+| Baseline (de onde vem, que período) | **Miniatura do curso (n = 1 por condição, caso fictício):** AV1.2, sem escopo × com escopo: revisão **30 → 10 min**, diff **89 → 42 linhas**, golden master 384/384 nas duas; AV1.1: agente com plano revisado 5 min × chat 15 min até verificado, **1 × 3** idas e vindas; AV1.3: escore de mutação 77% → 97%, como referência de qualidade da suíte. **No time:** as 8 semanas anteriores de PRs assistidos, extraídas do histórico do forge (abertura, aprovação, merge, revert), antes de anunciar a mudança. |
+| Período e método de comparação | 8 semanas de baseline × 8 semanas com a prática. Comparo a mediana e o percentil 75, e estratifico por tipo de tarefa (refatoração, feature, correção) e por faixa de tamanho do diff. Se der, alterno a exigência por repositório para ter grupo de controle no mesmo período. |
+| Confundidores previstos | Curva de aprendizado com a ferramenta; troca de modelo ou de versão do agente no meio do período; mix de tarefas diferente (sprint de release, feriados); revisores diferentes; efeito Hawthorne (o time sabe que está sendo medido); PRs menores por si só reduzem o tempo de revisão. |
+| Como a métrica poderia ser gamificada | Aprovar sem ler (*rubber stamp*); fatiar PRs artificialmente; marcar o PR como "não assistido" para tirá-lo da amostra; copiar um escopo genérico só para cumprir o campo. |
 
-**Contramedida contra a manipulação:** ___
+**Contramedida contra a manipulação:** a métrica é só do time, agregada, e não entra em avaliação individual (Goodhart). O guardrail é lido junto: tempo menor com mais reverts conta como piora. Por sorteio, 10% dos PRs aprovados são re-revisados por outra pessoa com o checklist da AV1.5; aprovação sem ler aparece como bloqueante achado depois. Reporto também o número de PRs por tarefa (fatiamento) e confiro por amostragem a marcação de "assistido" (trailer `Co-Authored-By` ou declaração no PR).
 
 | Tarefa recorrente candidata | Frequência e custo atual | Verificação da saída (determinística) | Permissões mínimas e orçamento | Responsável |
 | --- | --- | --- | --- | --- |
-| ___ |  |  |  |  |
+| Triagem de **dependência nova** em PR (motivada pela AV1.5: o agente adicionou `csv-export-helper==0.4.2`, que não existe no PyPI e não é importado, e a suíte ficou verde) | A cada PR que mexe em `requirements*.txt` ou `pyproject.toml`; ~10 min manuais por dependência, e hoje é esquecida quando a suíte passa. Filtro: alta frequência, verificável e com raio de impacto alto se falhar (cadeia de suprimentos) | **Script, não o agente:** (1) o pacote e a versão existem no índice (`pypi.org/pypi/<nome>/<versão>/json` com 200; 404 bloqueia); (2) `grep` encontra um import do pacote no diff (sem import: "não usada"); (3) idade do primeiro release ≥ 30 dias e nome sem distância de edição 1 de um pacote popular (typosquatting); (4) licença na allowlist. O agente só **resume** o changelog e o mantenedor num comentário marcado como proposta; o resultado vem das checagens. | Só leitura do diff; rede só para `pypi.org`; **sem segredos e sem escrita** no repositório; nada de `pull_request_target` nem execução com token em PR de fork (o diff é conteúdo não confiável); o comentário é postado por um job separado com token restrito a comentar. Tempo-limite de 5 min; orçamento por execução com teto de tokens e parada ao atingir. | Dono do repositório e da CI (tech lead). O merge segue humano: o bot não aprova nem bloqueia sozinho, só marca a checagem como falha para o revisor decidir. |
 
-**Limite da medição e condição para interromper ou rever:** ___
+**Limite da medição e condição para interromper ou rever:** a miniatura do curso tem n = 1, um único autor e um caso fictício: mostra a direção (escopo reduziu diff e revisão), não o tamanho do ganho. Uma revisão mais curta pode ser só revisão pior, por isso o guardrail é obrigatório. **Interrompo** a exigência se, por duas semanas seguidas, a taxa de revert/hotfix passar de 1,5× o baseline ou a re-revisão por amostragem achar bloqueante em mais de 20% dos PRs. **Revejo o desenho** se o modelo ou a ferramenta mudar no período, ou se a amostra ficar abaixo de ~20 PRs assistidos por fase (aí estendo o período em vez de concluir). Na automação, revejo se o falso positivo das checagens passar de 1 em 5 PRs, porque o time passa a ignorar o alerta.
 
-**Procedência/IA:** não utilizada / ferramenta e modelo visíveis: ___; tarefa delegada e contexto: ___; trecho aproveitado: ___; minha verificação/intervenção: ___. Use "não informado" para metadados indisponíveis. O raciocínio e a decisão registrados são meus.
+**Procedência/IA:** ferramenta e modelo visíveis: Claude Code, Claude Opus 5.5 (`claude-opus-5-5`); tarefa delegada e contexto: ler meus registros AV1.1 a AV1.5, extrair o baseline e redigir o desenho da medição e da automação; trecho aproveitado: tabelas e texto; minha verificação/intervenção: conferi os números do baseline contra os registros e defini o contexto de time. O raciocínio e a decisão registrados são meus.
 
-**Revisão:** [ ] medição completa; [ ] risco de manipulação; [ ] automação com verificação; [ ] limite; [ ] até uma página.
+**Revisão:** [x] medição completa; [x] risco de manipulação; [x] automação com verificação; [x] limite; [x] até uma página.

@@ -1,6 +1,6 @@
 # Registro individual — AV1.5
 
-**Limite: uma página, incluindo evidências essenciais.** Estudante: Heitor José Andrade de Oliveira — Data: 24/10/2026
+**Limite: uma página, incluindo evidências essenciais.** Estudante: Heitor José Andrade de Oliveira — Data: 09/11/2026
 Origem: pull request fictício liberado no bloco (`apoio/pr-bloco5/`, patch aplicado numa cópia descartável de `caso/`); modalidade: **execução própria** (testes de reprodução em `exercicios/aula-5/repro/test_repro_pr5.py`, saída em `repro/saida-pr.txt`: 5 FAIL, 1 ok).
 
 | # | Onde (arquivo) | Problema e impacto | Severidade (bloqueia / comenta) | Correção e teste que falharia sem ela |
